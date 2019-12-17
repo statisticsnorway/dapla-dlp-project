@@ -7,8 +7,10 @@ Collection of modules that handle Data Loss Prevention (DLP). This includes pseu
 
 The following shows components involved in reading and writing pseudonymized data.
 
-![Read pseudonymized data](http://www.plantuml.com/plantuml/proxy?src=https://raw.github.com/statisticsnorway/statisticsnorway/dapla-dlp-pseudo-project/master/doc/seq-pseudo-data-readwrite.puml)
-
+![Write/Read of pseudonymized data](doc/seq-pseudo-data-readwrite.png)
+<!--
+![Write/Read of pseudonymized data](http://www.plantuml.com/plantuml/proxy?src=https://raw.github.com/statisticsnorway/statisticsnorway/dapla-dlp-pseudo-project/master/doc/seq-pseudo-data-readwrite.puml)
+-->
 
 ## Development setup
 
