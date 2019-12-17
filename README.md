@@ -2,6 +2,9 @@
 
 Collection of modules that handle Data Loss Prevention (DLP). This includes pseudonymization functionality.
 
+> Data loss prevention (DLP) is a strategy for making sure that end users do not send sensitive or critical information outside the corporate network. The term is also used to describe software products that help a network administrator control what data end users can transfer.
+>
+> -- Wikipedia
 
 ## Contextual sequence diagram
 
