@@ -29,5 +29,5 @@ build-all                      Build all
 
 ## References
 
-* [dapla-dlp-pseudo-lib](https://github.com/statisticsnorway/dapla-dlp-pseudo-lib)
-* [dapla-dlp-pseudo-service](https://github.com/statisticsnorway/dapla-dlp-pseudo-service)
+* [dapla-dlp-pseudo-lib](https://github.com/statisticsnorway/dapla-dlp-pseudo-func)
+* [dapla-dlp-pseudo-service](https://github.com/statisticsnorway/dapla-dlp-key-service)

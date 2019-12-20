@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 declare -a repos=(
-  "dapla-dlp-pseudo-lib"
-  "dapla-dlp-pseudo-service"
+  "dapla-dlp-pseudo-func"
+  "dapla-dlp-secret-service"
 )
 
 for repo in "${repos[@]}"

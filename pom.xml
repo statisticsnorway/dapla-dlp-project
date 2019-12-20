@@ -9,8 +9,8 @@
     <name>Dapla DLP Project</name>
 
     <modules>
-        <module>dapla-dlp-pseudo-lib</module>
-        <module>dapla-dlp-pseudo-service</module>
+        <module>dapla-dlp-pseudo-func</module>
+        <module>dapla-dlp-key-service</module>
     </modules>
 
 </project>

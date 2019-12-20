@@ -9,7 +9,7 @@ participant "spark-service" as SparkService
 participant "noterepo-service" as NoterepoService
 participant "catalog-service" as CatalogService
 participant "auth-service" as AuthService
-participant "pseudo-key-service" as PseudoKeyService
+participant "dlp-secret-service" as SecretService
 database "GCS" as GCS
 
 ' Write (and pseudonymize) data
@@ -32,8 +32,8 @@ SparkService->NoterepoService: lookup(ns)
 NoterepoService-->SparkService: datasetId
 SparkService->CatalogService: getMetadata(datasetId)
 CatalogService-->SparkService: (dataLocation, valuation, state, pseudoConfig, etc)
-SparkService->PseudoKeyService: getPseudoKeys()
-PseudoKeyService-->SparkService:
+SparkService->SecretService: getPseudoKeys()
+SecretService-->SparkService:
 SparkService->CatalogService: createOrUpdate
 SparkService->AuthService: canAccess(ns, options)
 AuthService-->SparkService:
@@ -49,7 +49,7 @@ GCS-->SparkPlugin:
 deactivate GCS
 SparkPlugin->SparkService:
 activate SparkService
-SparkService->PseudoKeyService: createOrUpdate
+SparkService->SecretService: createOrUpdate key
 SparkService->CatalogService: createOrUpdate
 SparkService-->SparkPlugin
 deactivate SparkService
@@ -72,8 +72,8 @@ SparkService->CatalogService: getMetadata(datasetId)
 CatalogService-->SparkService: (dataLocation, valuation, state, pseudoConfig, etc)
 SparkService->AuthService: canAccess(ns, options)
 AuthService-->SparkService:
-SparkService->PseudoKeyService: getPseudoKeys()
-PseudoKeyService-->SparkService:
+SparkService->SecretService: getPseudoKeys()
+SecretService-->SparkService:
 SparkService-->SparkPlugin: dataLocation, pseudoConfig
 deactivate SparkService
 
