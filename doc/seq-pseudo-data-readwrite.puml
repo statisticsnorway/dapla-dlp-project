@@ -40,8 +40,7 @@ AuthService-->SparkService:
 SparkService-->SparkPlugin
 deactivate SparkService
 
-note over SparkPlugin: pseudo-lib
-SparkPlugin->SparkPlugin: lib.applyPseudo(data, pseudoConfig)
+SparkPlugin->SparkPlugin: pseudoFunc.apply(data)
 
 SparkPlugin->GCS: write data
 activate GCS
@@ -81,8 +80,7 @@ activate SparkPlugin
 SparkPlugin->GCS: loadData(dataLocation)
 GCS->SparkPlugin: dataframe
 
-note over SparkPlugin: pseudo-lib
-SparkPlugin->SparkPlugin: lib.removePseudo(data, pseudoConfig)
+SparkPlugin->SparkPlugin: pseudoFunc.restore(data)
 SparkPlugin-->Notebook
 
 @enduml
