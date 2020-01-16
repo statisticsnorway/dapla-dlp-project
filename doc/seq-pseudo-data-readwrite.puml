@@ -3,10 +3,9 @@ hide footbox
 
 ' Participants
 
-participant "Notebook" as Notebook
+participant "zeppelin" as Notebook
 participant "spark-plugin" as SparkPlugin
 participant "spark-service" as SparkService
-participant "noterepo-service" as NoterepoService
 participant "catalog-service" as CatalogService
 participant "auth-service" as AuthService
 participant "dlp-secret-service" as SecretService
@@ -16,10 +15,7 @@ database "GCS" as GCS
 note left of SparkPlugin
     ns='/path/to/data'
     options={
-        pseudoConfig: {
-            {col1={func1, key='somekey'},
-            {col2={func2, key='anotherkey'}
-        }
+        pseudo: "col1=func1-123,col2=func2-456"
     }
 end note
 
@@ -28,19 +24,16 @@ Notebook->SparkPlugin: write(ns, options)
 SparkPlugin->SparkService:
 
 activate SparkService
-SparkService->NoterepoService: lookup(ns)
-NoterepoService-->SparkService: datasetId
-SparkService->CatalogService: getMetadata(datasetId)
+SparkService->CatalogService: getMetadata(ns)
 CatalogService-->SparkService: (dataLocation, valuation, state, pseudoConfig, etc)
-SparkService->SecretService: getPseudoKeys()
-SecretService-->SparkService:
-SparkService->CatalogService: createOrUpdate
 SparkService->AuthService: canAccess(ns, options)
 AuthService-->SparkService:
+SparkService-->SecretService: getPseudoKeys()
+SecretService-->SparkService:
 SparkService-->SparkPlugin
 deactivate SparkService
 
-SparkPlugin->SparkPlugin: pseudoFunc.apply(data)
+SparkPlugin->SparkPlugin: pseudoContext.apply(data)
 
 SparkPlugin->GCS: write data
 activate GCS
@@ -48,7 +41,6 @@ GCS-->SparkPlugin:
 deactivate GCS
 SparkPlugin->SparkService:
 activate SparkService
-SparkService->SecretService: createOrUpdate key
 SparkService->CatalogService: createOrUpdate
 SparkService-->SparkPlugin
 deactivate SparkService
@@ -59,28 +51,26 @@ SparkPlugin-->Notebook
 
 note left of SparkPlugin
     ns='/path/to/data'
-    options={depseudonymize=true}
+    options={pseudo=all}
 end note
 
 Notebook->SparkPlugin: read(ns, options)
 SparkPlugin->SparkService:
 activate SparkService
-SparkService->NoterepoService: lookup(ns)
-NoterepoService-->SparkService: datasetId
-SparkService->CatalogService: getMetadata(datasetId)
+SparkService->CatalogService: getMetadata(ns)
 CatalogService-->SparkService: (dataLocation, valuation, state, pseudoConfig, etc)
 SparkService->AuthService: canAccess(ns, options)
 AuthService-->SparkService:
-SparkService->SecretService: getPseudoKeys()
+SparkService-->SecretService: getPseudoKeys()
 SecretService-->SparkService:
-SparkService-->SparkPlugin: dataLocation, pseudoConfig
+SparkService-->SparkPlugin:
 deactivate SparkService
 
 activate SparkPlugin
 SparkPlugin->GCS: loadData(dataLocation)
 GCS->SparkPlugin: dataframe
 
-SparkPlugin->SparkPlugin: pseudoFunc.restore(data)
+SparkPlugin->SparkPlugin: pseudoContext.restore(data)
 SparkPlugin-->Notebook
 
 @enduml
