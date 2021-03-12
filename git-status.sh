@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 declare -a repos=(
-  "dapla-dlp-pseudo-func"
-  "dapla-dlp-secret-service"
+  "rawdata-converter-core"
+  "rawdata-converter-app-freg"
+  "rawdata-converter-app-sirius"
 )
 
-printf '\ndapla-dlp-project'
+printf '\nrawdata-converter-project'
 echo "----------------------------------------------------------------"
 git status --short
 

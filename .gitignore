@@ -9,4 +9,4 @@ target/
 .project
 .settings
 .classpath
-dapla-dlp-pseudo-func/
+dapla-dlp-pseudo-*/
